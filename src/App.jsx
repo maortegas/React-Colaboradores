@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Buscador from "./components/Buscador";
+import { BaseColaboradores } from "./components/BaseColaboradores";
+import Listado from "./components/Listado";
+import Formulario from "./components/Formulario";
+import { useState } from "react";
+import Alert from "./components/Alert";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
+  const [colaboradores, setColaboradores] = useState(BaseColaboradores);
+  const [alert, setAlert] = useState({ error: "", msg: "", color: "" });
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="w-100 mt-3 container justify-content-center h-100">
+      <h1>Listado de colaboradores</h1>
+      <div className="sm-4 mb-4">
+        <Buscador
+          colaboradores={colaboradores}
+          setColaboradores={setColaboradores}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
 
-export default App
+      <div className="mb-5">
+        <Listado colaboradores={colaboradores} />
+      </div>
+      <div>
+        <h2>Agregar colaborador</h2>
+        <Formulario
+          colaboradores={colaboradores}
+          setColaboradores={setColaboradores}
+          setAlert={setAlert}
+        />
+        {alert.msg && <Alert mensaje={alert.msg} variant={alert.color} />}
+      </div>
+    </div>
+  );
+};
+
+export default App;
