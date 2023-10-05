@@ -1,45 +1,43 @@
+import { useState } from 'react'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css'
+import Formulario from './components/Formulario';
+import Alert from './components/Alert';
+import Listado from './components/Listado';
+import { BaseColaboradores } from "./components/BaseColaboradores.js"
+import Buscador from './components/Buscador';
 
-import Buscador from "./components/Buscador";
-import { BaseColaboradores } from "./components/BaseColaboradores";
-import Listado from "./components/Listado";
-import Formulario from "./components/Formulario";
-import { useState } from "react";
-import Alert from "./components/Alert";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-const App = () => {
-  const [colaboradores, setColaboradores] = useState(BaseColaboradores);
-  const [alert, setAlert] = useState({ error: "", msg: "", color: "" });
-  const [buscador, setBuscador] = useState([]);
-  const [buscadorFlag, setBuscadorFlag] = useState(true);
+
+function App() {
+ const [colaboradores, setColaboradores]=useState(BaseColaboradores);
+ const [buscador, setBuscador]=useState([]);
+ const [buscadorFlag, setBuscadorFlag]=useState(true);
+ const [alert, setAlert]=useState({ error: "", msg: "", color: "" });
 
   return (
-    <div className="mt-3 d-flex justify-content-center flex-wrap h-100">
-      <div className="row col-md-6 mr-4">
-        <h1>Listado de colaboradores</h1>
-        <div className="sm-4 mb-4 one">
-          <Buscador
-            colaboradores={colaboradores}
-            setBuscador={setBuscador}
-            setBuscadorFlag={setBuscadorFlag}
-          />
-        </div>
-
-        <div className="mb-5">
-          <Listado colaboradores={buscadorFlag ? colaboradores : buscador} />
-        </div>
+    <>
+      <div className=" mx-4 m-5 w-75">
+        <Row>
+          <Col sm={12} md={9}>
+          <h1>Listado de colaboradores</h1>
+            <Buscador colaboradores={colaboradores} setBuscador= {setBuscador} setBuscadorFlag={setBuscadorFlag} />
+          </Col>
+          <Col sm={12} md={9} className="">
+            <Listado colaboradores={ buscadorFlag ? colaboradores:buscador} /> 
+          </Col>
+          <Col md={3}  className="">
+            <p className="text-center fs-4" >Agregar colaborador</p>
+            <Formulario colaboradores={colaboradores} setColaboradores={setColaboradores} setAlert={setAlert}  />
+            {alert.msg && <Alert mensaje={alert.msg} variant={alert.color} /> }
+          </Col>
+        </Row>
       </div>
-      <div className="row col-md-6">
-        <h2>Agregar colaborador</h2>
-        <Formulario
-          colaboradores={colaboradores}
-          setColaboradores={setColaboradores}
-          setAlert={setAlert}
-        />
-        {alert.msg && <Alert mensaje={alert.msg} variant={alert.color} />}
-      </div>
-    </div>
-  );
-};
+    </>
+  )
+}
 
-export default App;
+export default App

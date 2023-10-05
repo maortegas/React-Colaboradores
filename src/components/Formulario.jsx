@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
 
 const Formulario = ({ colaboradores, setColaboradores, setAlert }) => {
@@ -48,7 +49,7 @@ const Formulario = ({ colaboradores, setColaboradores, setAlert }) => {
       setTelefono("");
     }
   };
-  
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
