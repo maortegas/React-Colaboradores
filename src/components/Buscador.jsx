@@ -6,6 +6,7 @@ const Buscador = ({ colaboradores, setBuscador, setBuscadorFlag }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let buscar = "";
+    setBuscadorFlag(false);
 
     const filteredCol = colaboradores.filter((colaborador) => {
       buscar =
@@ -14,11 +15,9 @@ const Buscador = ({ colaboradores, setBuscador, setBuscadorFlag }) => {
         colaborador.edad.toUpperCase() +
         colaborador.cargo.toUpperCase() +
         colaborador.telefono.toUpperCase();
-
-      if (buscar.toUpperCase().includes(search.toUpperCase())) {
-        setBuscadorFlag(false);
-        return true;
-      }
+  
+        return buscar.toUpperCase().includes(search.toUpperCase());
+    
     });
     if (search == "") {
       setBuscadorFlag(true);
