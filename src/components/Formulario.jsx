@@ -7,6 +7,16 @@ const Formulario = ({ colaboradores, setColaboradores, setAlert }) => {
   const [cargo, setCargo] = useState("");
   const [telefono, setTelefono] = useState("");
 
+  const asignaID = (arreglo) => {
+    let id = 1;
+    let paso = [...arreglo];
+    if (paso.length > 0) {
+      const ordenado = paso.sort((x, y) => y.id - x.id);
+      id = Number(ordenado[0].id) + 1;
+    }
+    return id;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!nombre || !correo || !edad || !cargo || !telefono) {
@@ -21,7 +31,7 @@ const Formulario = ({ colaboradores, setColaboradores, setAlert }) => {
         color: "success",
         error: false,
       });
-      const id = "10";
+      const id = asignaID(colaboradores);
       const colaborador = {
         id,
         nombre,
@@ -38,7 +48,7 @@ const Formulario = ({ colaboradores, setColaboradores, setAlert }) => {
       setTelefono("");
     }
   };
-
+  
   return (
     <div>
       <form onSubmit={handleSubmit}>

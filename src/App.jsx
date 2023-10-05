@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Buscador from "./components/Buscador";
 import { BaseColaboradores } from "./components/BaseColaboradores";
 import Listado from "./components/Listado";
